@@ -1,0 +1,8 @@
+{
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/79923333-81a9-49c8-bf4f-ae275dc61964/resourceGroups/sssf/providers/Microsoft.Web/sites/thanhhu-sssf-wk4-5-api-server",
+  "appService.deploySubpath": "."
+}
