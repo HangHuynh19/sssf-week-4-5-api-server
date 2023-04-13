@@ -1,11 +1,11 @@
-interface location {
+interface Location {
   lat: number;
   lng: number;
 }
 
-interface locationInput {
-  topRight: location;
-  bottomLeft: location;
+interface LocationInput {
+  topRight: Location;
+  bottomLeft: Location;
 }
 
-export {locationInput};
+export {LocationInput};

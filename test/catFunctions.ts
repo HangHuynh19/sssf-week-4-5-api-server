@@ -4,7 +4,7 @@ import expect from 'expect';
 import {CatTest} from '../src/interfaces/Cat';
 import UploadMessageResponse from '../src/interfaces/UploadMessageResponse';
 import {UserTest} from '../src/interfaces/User';
-import {locationInput} from '../src/interfaces/Location';
+import {LocationInput} from '../src/interfaces/Location';
 require('dotenv').config();
 
 // add test for graphql query
@@ -82,7 +82,7 @@ const postCat = (
             weight
             birthdate
             owner {
-              user_name
+              username
             }
             location {
               coordinates
@@ -102,7 +102,7 @@ const postCat = (
           expect(newCat.cat_name).toBe(cat.catName);
           expect(newCat.weight).toBe(cat.weight);
           expect(newCat).toHaveProperty('birthdate');
-          expect(newCat.owner).toHaveProperty('user_name');
+          expect(newCat.owner).toHaveProperty('username');
           expect(newCat.location).toHaveProperty('coordinates');
           expect(newCat.location).toHaveProperty('type');
           expect(newCat.filename).toBe(cat.filename);
@@ -154,7 +154,7 @@ const getCat = (url: string | Function): Promise<CatTest[]> => {
             owner {
               email
               id
-              user_name
+              username
             }
           }
         }`,
@@ -175,7 +175,7 @@ const getCat = (url: string | Function): Promise<CatTest[]> => {
             expect(cat).toHaveProperty('owner');
             expect(cat.owner).toHaveProperty('email');
             expect(cat.owner).toHaveProperty('id');
-            expect(cat.owner).toHaveProperty('user_name');
+            expect(cat.owner).toHaveProperty('username');
           });
           resolve(cats);
         }
@@ -224,7 +224,7 @@ const getSingleCat = (url: string | Function, id: string): Promise<CatTest> => {
             owner {
               email
               id
-              user_name
+              username
             }
             weight
           }
@@ -247,7 +247,7 @@ const getSingleCat = (url: string | Function, id: string): Promise<CatTest> => {
           expect(cat).toHaveProperty('owner');
           expect(cat.owner).toHaveProperty('email');
           expect(cat.owner).toHaveProperty('id');
-          expect(cat.owner).toHaveProperty('user_name');
+          expect(cat.owner).toHaveProperty('username');
           resolve(cat);
         }
       });
@@ -520,7 +520,7 @@ const getCatByOwner = (
               type
             }
             owner {
-              user_name
+              username
               id
               email
             }
@@ -547,7 +547,7 @@ const getCatByOwner = (
             expect(cat.owner).toHaveProperty('email');
             expect((cat.owner as UserTest).id).toBe(id);
             expect(cat.owner).toHaveProperty('id');
-            expect(cat.owner).toHaveProperty('user_name');
+            expect(cat.owner).toHaveProperty('username');
           });
           resolve(cats);
         }
@@ -570,7 +570,7 @@ query CatsByArea($topRight: Coordinates!, $bottomLeft: Coordinates!) {
 
 const getCatByBoundingBox = (
   url: string | Function,
-  location: locationInput
+  location: LocationInput
 ): Promise<CatTest[]> => {
   return new Promise((resolve, reject) => {
     request(url)

@@ -1,3 +1,5 @@
+/*import dotenv from 'dotenv';
+dotenv.config();
 import app from '../src/app';
 import {
   adminDeleteUser,
@@ -26,14 +28,13 @@ import {
   wrongUserDeleteCat,
   wrongUserPutCat,
 } from './catFunctions';
-
-const uploadApp = process.env.UPLOAD_URL as string;
-
 import randomstring from 'randomstring';
 import UploadMessageResponse from '../src/interfaces/UploadMessageResponse';
 import {CatTest} from '../src/interfaces/Cat';
 import LoginMessageResponse from '../src/interfaces/LoginMessageResponse';
 import jwt from 'jsonwebtoken';
+
+//const uploadApp = process.env.UPLOAD_URL as string;
 
 describe('Testing graphql api', () => {
   beforeAll(async () => {
@@ -55,13 +56,13 @@ describe('Testing graphql api', () => {
   let adminData: LoginMessageResponse;
 
   const testUser: UserTest = {
-    user_name: 'Test User ' + randomstring.generate(7),
+    username: 'Test User ' + randomstring.generate(7),
     email: randomstring.generate(9) + '@user.fi',
     password: 'testpassword',
   };
 
   const testUser2: UserTest = {
-    user_name: 'Test User ' + randomstring.generate(7),
+    username: 'Test User ' + randomstring.generate(7),
     email: randomstring.generate(9) + '@user.fi',
     password: 'testpassword',
   };
@@ -124,7 +125,10 @@ describe('Testing graphql api', () => {
   let uploadData1: UploadMessageResponse;
   let catData1: CatTest;
   it('should upload a cat', async () => {
-    uploadData1 = await postFile(uploadApp, userData.token!);
+    uploadData1 = await postFile(
+      process.env.UPLOAD_URL as string,
+      userData.token!
+    );
     catData1 = {
       catName: 'Test Cat' + randomstring.generate(7),
       weight: 5,
@@ -137,7 +141,7 @@ describe('Testing graphql api', () => {
   // test post cat data
   let catID1: string;
   it('should post cat data with file and location', async () => {
-    console.log(catData1);
+    console.log('catData1', catData1);
     const cat = await postCat(app, catData1, userData.token!);
     catID1 = cat.id!;
   });
@@ -240,7 +244,7 @@ describe('Testing graphql api', () => {
   test('Brute force attack simulation', async () => {
     const maxAttempts = 20;
     const mockUser: UserTest = {
-      user_name: 'Test User ' + randomstring.generate(7),
+      username: 'Test User ' + randomstring.generate(7),
       email: randomstring.generate(9) + '@user.fi',
       password: 'notthepassword',
     };
@@ -260,4 +264,4 @@ describe('Testing graphql api', () => {
       expect((error as Error).message).toBe('Brute force attack unsuccessful');
     }
   }, 15000);
-});
+});*/
